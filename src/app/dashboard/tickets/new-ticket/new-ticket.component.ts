@@ -24,8 +24,10 @@ import { tick } from '@angular/core/testing';
 export class NewTicketComponent implements AfterViewInit, OnInit {
   @ViewChild('form') private form?: ElementRef<HTMLFormElement>;
   //private form = viewChild.required<ElementRef<HTMLFormElement>>('form');
-
   //@Output() add = new EventEmitter<{title: string; text: string}>();
+
+  enteredTitle='';
+  enteredText='';
   add = output<{title: string; text: string}>();
 
 
@@ -40,11 +42,14 @@ export class NewTicketComponent implements AfterViewInit, OnInit {
     console.log(this.form?.nativeElement);
   }
 
-  onSubmit(title: string, ticketText: string) {
+  onSubmit() {
     // console.log(title);
     // console.log(ticketText);
 
-    this.add.emit({title: title, text: ticketText});
-    this.form?.nativeElement.reset();
+    this.add.emit({title: this.enteredTitle, text: this.enteredText});
+    //two way binding
+    // this.form?.nativeElement.reset();
+    this.enteredTitle='';
+    this.enteredText='';
   }
 }
